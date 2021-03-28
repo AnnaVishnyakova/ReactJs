@@ -1,13 +1,16 @@
 //commonJS
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
     entry:{
         app:'./src/index.js'
     },
+    
     output:{
         path: path.resolve(__dirname,'static','build'),
-        publicPath:'/static/build/'
+       // publicPath:'/'
     },
     module:{
         rules: [
@@ -22,4 +25,9 @@ module.exports = {
             },
         ],
     },
+    plugins: [new HtmlWebpackPlugin({
+        title:'App',
+        template: "./src/index.html"
+    })],
+ 
 };

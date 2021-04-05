@@ -1,12 +1,16 @@
 import React from 'react';
-import {Message} from '../Messages'
-const App = () => {
-    //return React.createElement('div',{id:'test-id'},'Hello');
-    return <div id="test-id">
-        <h2>Hello</h2>
-        <Message text="my new message"/>
+import {Messages} from '../Messages';
+
+class  App extends React.Component{
+    
+  
+    render(){
+        return ( <div id="test-id">
+        <h2>Hello from React</h2>
+        <Messages />
         
-    </div>;
-};
-//export default App;
+        </div>);
+    }
+}
+
 export {App};

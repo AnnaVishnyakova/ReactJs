@@ -19,8 +19,20 @@ module.exports = {
                 include: path.resolve(__dirname,'src'),
                 loader:'babel-loader',
                 exclude:/node_modules/,
-                options:{
-                    presets:['@babel/env','@babel/preset-react'],
+                options: {
+                    presets: [
+                        '@babel/env',
+                        ['@babel/preset-react',{
+                            runtime:'automatic'
+                            }
+                        ]
+                    ],
+                    plugins:[
+                        [
+                            '@babel/plugin-proposal-class-properties',
+                            {loose: true},
+                        ]
+                    ],
                 },
             },
         ],
@@ -29,5 +41,10 @@ module.exports = {
         title:'App',
         template: "./src/index.html"
     })],
- 
+    
+    resolve: {
+        extensions:['.js','.jsx'],
+    },
+
+    devtool: 'inline-source-map',
 };

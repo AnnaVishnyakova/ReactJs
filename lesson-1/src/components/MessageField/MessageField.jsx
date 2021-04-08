@@ -48,7 +48,7 @@ export class MessageField extends React.Component {
               this.setState({messages:[...this.state.messages, {text:"Как твои дела?" ,author: "I am Robot"} ]});
           },1000);
       }
-      this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
+      this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight; //чтобы скролл опускался за сообщением
 
   };
     render() {

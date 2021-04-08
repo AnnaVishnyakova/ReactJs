@@ -10,7 +10,7 @@ module.exports = {
     
     output:{
         path: path.resolve(__dirname,'static','build'),
-       // publicPath:'/'
+       publicPath:'/',
     },
     module:{
         rules: [

@@ -6,9 +6,14 @@
 import {App} from './components/App';
 // //import {Messages} from './components/Messages';
 // ReactDom.render(<App />,document.querySelector('#root'));
-import React, { Component } from "react"
-import ReactDOM from "react-dom"
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import {BrowserRouter} from 'react-router-dom';
 //import { MessageField} from "./components/MessageField"
 
 
-ReactDOM.render(<App />, document.getElementById("root"))
+ReactDOM.render(
+    <BrowserRouter>
+<App />
+</BrowserRouter>,
+document.getElementById("root"))

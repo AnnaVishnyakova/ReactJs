@@ -1,7 +1,8 @@
 import {Component} from 'react';
 import {Header} from '../Header';
-import {ChatList} from '../ChatList';
-import {MessageField} from '../MessageField';
+import {Layout} from '../Layout';
+// import {ChatList} from '../ChatList';
+// import {MessageField} from '../MessageField';
 import {Router} from '../Router';
 //import {ControlForm,Form} from '../Form/';
 
@@ -13,7 +14,7 @@ class App extends Component {
           <h1>Мой первый чат</h1>
           <Header/>
           <Router/>
-          <MessageField />
+        
           {/* <Form/> */}
           {/* <ControlForm/> */}
         </div>

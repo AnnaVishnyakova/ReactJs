@@ -1,4 +1,23 @@
-.ChatList{
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(220, 242, 245);
     width: 30%;
-    float: left;
+    overflow-y: auto;
+    height: 400px;
+}
+.chat-list a {
+    color: rgb(48, 41, 41);
+    text-decoration: none;
+}
+.new-chat {
+    padding: 10px;
+    position: relative;
+}
+
+.new-chat > *:last-child {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

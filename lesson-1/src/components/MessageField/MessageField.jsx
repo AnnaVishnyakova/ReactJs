@@ -1,16 +1,37 @@
 import React, { createRef } from 'react';
-import {Messages} from '../Messages';
-import '../styles/styles.css';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import PropTypes from 'prop-types';
+
+import {Messages} from '../Messages';
+import '../styles/styles.css';
 
 export class MessageField extends React.Component {
-    
+    static propTypes = {
+      currentChat: PropTypes.string, 
+
+    };
+
   state = {
-    messages: [{ text: "Привет!", author: 'bot' }],
-    value:'',
-    input:'',
+    messages:{
+    0:[
+      {text: "Привет!", author: 'bot' },
+    // {value:''},
+    // {input:''},
+    ],
+    1:[
+      
+    ],
+    2:[
+      {text: "Пока!", author: 'bot' },
+    // {value:''},
+    // {input:''},
+    ],
+  },
+    // messages: [{ text: "Привет!", author: 'bot' }],
+    // value:'',
+    // input:'',
     
 
 };
@@ -32,71 +53,88 @@ export class MessageField extends React.Component {
 
 
     addMessage = (message) => {
-        const { messages } = this.state
-        this.setState({ messages: [ ...this.state.messages, {text: message, author: 'me'} ], 
-        input: '',
+      const {currentChat} = this.props;
+        const { messages } = this.state;
+        this.setState({ 
+          messages: {
+          ...this.state.messages,
+          [currentChat]: [
+              ...this.state.messages[currentChat],
+              {
+                  text: this.state.input,
+                  author: 'me',
+              },
+          ],
+      }, input: '',
       });
 
     };
 
-    componentDidUpdate(_,prevState) {
-      console.log('componentDidUpdate');
-      if ( prevState.messages.length !==
-        this.state.messages.length &&
-        this.state.messages.length % 2 === 1){
-          setTimeout(() =>{
-              this.setState({messages:[...this.state.messages, {text:"Как твои дела?" ,author: "I am Robot"} ]});
-          },1000);
+    componentDidUpdate(_, prevState) {
+      const { currentChat } = this.props;
+
+      if (
+          prevState.messages[currentChat].length !==
+              this.state.messages[currentChat].length &&
+          this.state.messages[currentChat].length % 2 === 1
+      ) {
+          setTimeout(() => {
+              this.setState({
+                  messages: {
+                      ...this.state.messages,
+                      [currentChat]: [
+                          ...this.state.messages[currentChat],
+                          { text: 'I am just robot', author: 'robot' },
+                      ],
+                  },
+                  input: '',
+              });
+          }, 1000);
       }
-      this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight; //чтобы скролл опускался за сообщением
 
-  };
+      this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
+  }
+   
+   
     render() {
-
-      const messageElements = this.state.messages.map((message, index) => (
-           <Messages key={ index } message={message} />));
+      const { messages = [] } = this.state;
+      const { currentChat } = this.props;
+      console.log('Messages', currentChat);
+     
 
       return (
           <div className="layout">
-           <div className="message-field message-field-chat1" ref={this.fieldRef}>
-               { messageElements }
-           </div>
-           <Input
+             {currentChat && (
+                    <>
+                      <div className="message-field " ref={this.fieldRef}>
+                      {messages[currentChat] && messages[currentChat].map((message, index) => (
+                                    <Messages key={index} message={message} />
+                                ))}
+                      </div>
+                      <div>
+                        <Input
 
-              color="primary"
-               name="input"
-               value={this.state.input} 
-               style={ { fontSize: '22px' } }
-               onChange={ this.handleChange }
-              onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
-           />
-           <br/>
-           <Button
-               style={ { marginTop: '10px' } }  
-              variant="contained" color="primary"
-              startIcon ={<Icon>send</Icon>}
-               onClick={ () => this.handleClick(this.state.input) }
-           >
-               Отправить сообщение
-           </Button>
+                            color="primary"
+                            name="input"
+                            value={this.state.input} 
+                            style={ { fontSize: '22px' } }
+                            onChange={ this.handleChange }
+                            onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
+                        />
+                        <br/>
+                        <Button
+                            style={ { marginTop: '10px' } }  
+                            variant="contained" color="primary"
+                            startIcon ={<Icon>send</Icon>}
+                            onClick={ () => this.handleClick(this.state.input) }
+                        >
+                            Отправить сообщение
+                        </Button>
+                      </div>
+                    </>
+                     )}
           </div>
-
-            // <div id='main' className='message-field'>
-            //   <button onClick={this.addMessage}>Отправить сообщение</button>
-      
-            //   {messages.map((message, index) => (
-            //     <Messages message={message} key={index} />
-            //   ))}
-            // </div>
-          )
-//        const messageElements = this.state.messages.map((text, index) => (
-//            <Message key={ index } text={ text } />));
-
-//        return <div>
-//            { messageElements }
-//            <button onClick={ this.addMessage}>Отправить сообщение</button>
-//        </div>
-  }
-}
-
-//export {MessageField};
+      );
+    }
+};
+         

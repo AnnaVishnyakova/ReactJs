@@ -1,42 +1,64 @@
-import React from 'react';
+import { Component } from 'react';
+import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import Send from '@material-ui/icons/Send';
+import { TextField, Icon, IconButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import './ChatList.css';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Typography from '@material-ui/core/Typography';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 
+class ChatList extends Component {
+    state = {
+        chats: ['chat 1', 'chat 2', 'chat 3'],
+        chatName: '',
+    };
+    //здание нового чата
+    addChat = () => {
+        this.setState({
+            chats: [...this.state.chats, this.state.chatName],
+            chatName: '',
+        });
+    };
 
-export class ChatList extends React.Component{
-    render (){
-        return(
-            <div className='ChatList'>
-        <MenuList>
-        <MenuItem>
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">Chat 1</Typography>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-          <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">Chat 2</Typography>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-          <SendIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit" noWrap>Chat 3</Typography>
-        </MenuItem>
-        </MenuList>
+    render() {
+        return (
+            <div className='chat-list'>
+                <List>
+                    {this.state.chats.map((chat, index) => (
+                        <Link key={index} to={`/chat/${index}`}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <Send />
+                                </ListItemIcon>
+                                <ListItemText primary={chat} />
+                            </ListItem>
+                        </Link>
+                    ))}
+                </List>
+                <div className='new-chat'>
+                    <TextField
+                        value={this.state.chatName}
+                        label='New chat'
+                        onChange={(event) =>
+                            this.setState({
+                                chatName: event.target.value,
+                            })
+                        }
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                                this.addChat();
+                            }
+                        }}
+                    />
+                    <IconButton
+                        color='primary'
+                        variant='contained'
+                        onClick={this.addChat}
+                    >
+                        <Icon>send</Icon>
+                    </IconButton>
+                </div>
             </div>
-        )
+        );
     }
 }
 
+export { ChatList };

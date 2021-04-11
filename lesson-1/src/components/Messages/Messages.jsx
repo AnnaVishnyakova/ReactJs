@@ -1,34 +1,15 @@
-import {Component} from 'react';
-import PropTypes from'prop-types';
-import '../styles/styles.css';
-//import {App} from '../App';
+import './Messages.css';
 
-
-export class Messages extends Component{
-    static propTypes = {
-        message: PropTypes.shape({
-          author: PropTypes.string.isRequired,
-          text: PropTypes.string.isRequired,
-        }),
-      }
-  
-     
-    render(){
-        const {
-            message: {text,author},
-          } = this.props
-        
+const Messages = (props) => {
     return (
-        <div className={`message ${this.props.author === 'me' ? 'message-mine' : ''}`}>
-          <div className="messageText"
-           >{text}</div>
-          <div className="messageAuthor">{author}</div>
+        <div
+            className={`message ${props.author === 'me' ? 'message-mine' : ''}`}
+        >
+            <div className='message__text'>{props.text}</div>
+            <div className='message__author'>{props.author}</div>
         </div>
-      )
-      
-     
-   
-}
-
-  
+    );
 };
+
+export { Messages };
+

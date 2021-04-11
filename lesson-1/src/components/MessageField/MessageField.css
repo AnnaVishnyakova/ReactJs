@@ -1,0 +1,26 @@
+
+
+.message-field {
+    display: flex;
+    flex-direction: column;
+    background-image: url(../img/img-fonChat.png);
+    padding: 10px 15px;
+    height: 400px;
+
+    width: 70%;
+}
+.messages {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    overflow-y: auto;
+}
+
+.message-new {
+    display: flex;
+}
+.message-new > div:first-child {
+    flex-grow: 1;
+}

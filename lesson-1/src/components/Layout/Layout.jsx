@@ -14,13 +14,12 @@ class _Layout extends Component {
     };
 
     render() {
-        const { match } = this.props;
-        console.log(match);
+        const { params } = this.props.match;
 
         return (
             <div className='chat-layout'>
                 <ChatList />
-                <MessageField currentChat={match.params.id} />
+                <MessageField currentChat={params.id} />
             </div>
         );
     }

@@ -6,6 +6,7 @@
     width: 30%;
     overflow-y: auto;
     height: 400px;
+    padding: 10px 0px;
 }
 .chat-list a {
     color: rgb(48, 41, 41);

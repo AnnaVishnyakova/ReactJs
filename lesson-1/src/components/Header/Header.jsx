@@ -1,19 +1,34 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import './Header.css';
 
+const _Header = ({ userName }) => {
+    return (
+        <header className='header'>
+            <span>Мой Чат</span>
+            {userName ? <div>{userName}</div> : null}
+            <div className='menu'>
+                <Link to='/' className='menu-item'>
+                    Chats
+                </Link>
+                <Link to='/profile' className='menu-item'>
+                    Profile
+                </Link>
+            </div>
+        </header>
+    );
+};
 
-export class Header extends React.Component{
-    render (){
-        return(
-            <div className='header'> 
-            <Link to='/' className='menu-item'>
-                Chats
-            </Link>
-            <Link to='/profile' className='menu-item'>
-                Profile
-            </Link>
-        </div>
-        )
-    }
-}
+_Header.propTypes = {
+    userName: PropTypes.string,
+};
+
+const mapStateToProps = (state) => ({
+    userName: state.profile.userName,
+});
+
+const Header = connect(mapStateToProps)(_Header);
+
+export { Header };

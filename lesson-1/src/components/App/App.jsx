@@ -1,10 +1,6 @@
 import {Component} from 'react';
-import {Header} from '../Header';
-import {Layout} from '../Layout';
-// import {ChatList} from '../ChatList';
-// import {MessageField} from '../MessageField';
-import {Router} from '../Router';
-//import {ControlForm,Form} from '../Form/';
+import { Header } from '../Header';
+import { Router } from '../Router';
 
 
 class App extends Component {
@@ -15,12 +11,10 @@ class App extends Component {
           <Header/>
           <Router/>
         
-          {/* <Form/> */}
-          {/* <ControlForm/> */}
         </div>
-      )
+      );
     }
-  }
+  };
 
 
 

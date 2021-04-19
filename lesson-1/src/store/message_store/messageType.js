@@ -1,0 +1,1 @@
+export const SEND_MESSAGE = '@@messages/SEND_MESSAGE';

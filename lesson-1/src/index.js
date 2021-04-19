@@ -1,8 +1,16 @@
-//ES6 Modules
-import React from 'react';
-import ReactDom, { render } from 'react-dom';
-const App = () => {
-    //return React.createElement('div',{id:'test-id'},'Hello');
-    return <div id="test-id">Hello</div>;
-};
-ReactDom.render(<App />,document.querySelector('#root'));
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import {BrowserRouter} from 'react-router-dom';
+import {Provider as ReduxProvider} from 'react-redux';
+
+import {App} from './components/App';
+import {store} from './store';
+
+ReactDOM.render(
+    <BrowserRouter>
+        <ReduxProvider store={store}>
+            <App />
+        </ReduxProvider>
+    </BrowserRouter>,
+    document.querySelector('#root')
+);

@@ -1,4 +1,5 @@
-export const SEND_MESSAGE = '@@messages/SEND_MESSAGE';
+
+import { SEND_MESSAGE } from "./messageType";
 
 export const sendMessage = (text, author, chatId) => ({
     type: SEND_MESSAGE,

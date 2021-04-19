@@ -8,7 +8,7 @@ import { TextField, Icon, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import './ChatList.css';
-import { addChat } from '../../actions/chatActions';
+import { addChat } from '../../store/chat_store/chatActions';
 
 // const styles = {
 //     root: {
@@ -82,7 +82,7 @@ const mapStateToProps = (state) => ({
     chats: state.chat.chats,
 });
 
-const ChatList = connect(mapStateToProps, { addChat })(_ChatList);
+export const ChatList = connect(mapStateToProps, { addChat })(_ChatList);
 
-export { ChatList };
+
 

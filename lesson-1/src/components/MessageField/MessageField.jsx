@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import './MessageField.css';
-import { sendMessage } from '../../actions/messageActions';
+import { sendMessage } from '../../store/message_store/messageActions';
 import { Messages } from '../Messages';
 
 const styles = {
@@ -45,27 +45,28 @@ class _MessageField extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        const chatId = this.props.currentChat;
+        // const chatId = this.props.currentChat;
 
-        if (
-            prevProps.messages[chatId]?.length !==
-                this.props.messages[chatId]?.length &&
-            this.props.messages[chatId]?.length % 2 === 1
-        ) {
-            setTimeout(() => {
-                this.addMessage('I am just robot', 'robot');
-            }, 1000);
-        }
+        // if (
+        //     prevProps.messages[chatId]?.length !==
+        //         this.props.messages[chatId]?.length &&
+        //     this.props.messages[chatId]?.length % 2 === 1
+        // ) {
+        //     setTimeout(() => {
+        //         this.addMessage('I am just robot', 'robot');
+        //     }, 1000);
+        // }
 
         this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
     }
 
     render() {
         const { messages = {}, currentChat: chatId } = this.props;
+        //console.log(messages);
 
         return (
             <div className='message-field'>
-                {this.props.currentChat && (
+                {chatId && (
                     <>
                         <div className='messages' ref={this.fieldRef}>
                             {messages[chatId] &&
@@ -75,6 +76,7 @@ class _MessageField extends Component {
                         </div>
                         <div className='message-new'>
                             <TextField
+                                inputRef={this.inputRef}
                                 value={this.state.textMessage}
                                 label='New message'
                                 onChange={(event) =>
@@ -104,15 +106,14 @@ class _MessageField extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    messages: state.chat.messages,
+    messages: state.messages.messages,
 });
 
 // const mapDispatchToProps = (dispatch) =>
 //     bindActionCreators({ sendMessage }, dispatch);
 
-const MessageField = compose(
+export const MessageField = compose(
     withStyles(styles),
     connect(mapStateToProps, { sendMessage })
 )(_MessageField);
 
-export { MessageField };

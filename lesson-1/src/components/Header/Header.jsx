@@ -29,6 +29,5 @@ const mapStateToProps = (state) => ({
     userName: state.profile.userName,
 });
 
-const Header = connect(mapStateToProps)(_Header);
+export const Header = connect(mapStateToProps)(_Header);
 
-export { Header };

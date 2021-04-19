@@ -1,10 +1,10 @@
-import { SET_NAME } from '../actions/profileActions';
+import { SET_NAME } from './profileType';
 
 const initialState = {
     userName: '',
 };
 
-export default function profileReducer(state = initialState, action) {
+export const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_NAME: {
             return {

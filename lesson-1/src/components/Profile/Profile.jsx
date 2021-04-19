@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 
-import { setName } from '../../actions/profileActions';
+import { setName } from '../../store/profile_store/profileActions';
 import './Profile.css';
 
 class _Profile extends React.Component {

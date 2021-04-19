@@ -1,4 +1,5 @@
-export const SET_NAME = '@@profile/SET_NAME';
+
+import { SET_NAME } from "./profileType";
 
 export const setName = (name) => {
     return {

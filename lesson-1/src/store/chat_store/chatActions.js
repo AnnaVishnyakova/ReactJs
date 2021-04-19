@@ -1,4 +1,4 @@
-export const ADD_CHAT = '@@chat/ADD_CHAT';
+import { ADD_CHAT } from "./chatType";
 
 export const addChat = (title) => ({
    type: ADD_CHAT,

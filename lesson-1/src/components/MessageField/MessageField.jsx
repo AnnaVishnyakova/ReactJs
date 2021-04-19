@@ -45,18 +45,7 @@ class _MessageField extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        // const chatId = this.props.currentChat;
-
-        // if (
-        //     prevProps.messages[chatId]?.length !==
-        //         this.props.messages[chatId]?.length &&
-        //     this.props.messages[chatId]?.length % 2 === 1
-        // ) {
-        //     setTimeout(() => {
-        //         this.addMessage('I am just robot', 'robot');
-        //     }, 1000);
-        // }
-
+       
         this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
     }
 

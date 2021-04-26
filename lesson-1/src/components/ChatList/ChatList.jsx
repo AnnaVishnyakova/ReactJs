@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// { format } from "date-fns"
 //import { compose } from 'redux';
 import Send from '@material-ui/icons/Send';
 import { TextField, Icon, IconButton } from '@material-ui/core';
@@ -35,19 +36,22 @@ class _ChatList extends Component {
     };
 
     render() {
-        const { chats } = this.props;
+        const { chats,lastMessage, messages} = this.props;
+        //const msg = messages[index] || []
 
         return (
             <div className='chat-list'>
                 <List>
                     {chats.map((chat, index) => (
                         <Link key={index} to={`/chat/${index}`}>
+                            
                             <ListItem button>
                                 <ListItemIcon>
                                     <Send />
                                 </ListItemIcon>
                                 <ListItemText primary={chat} />
                             </ListItem>
+                            
                         </Link>
                     ))}
                 </List>
@@ -80,6 +84,7 @@ class _ChatList extends Component {
 }
 const mapStateToProps = (state) => ({
     chats: state.chat.chats,
+    //messages: state.messages.messages,
 });
 
 export const ChatList = connect(mapStateToProps, { addChat })(_ChatList);

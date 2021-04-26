@@ -3,6 +3,8 @@ import { SEND_MESSAGE, sendMessage } from "../message_store"
 export const messagesMiddleware = (store) => (next) => (action) => {
     switch (action.type) {
         case SEND_MESSAGE:{
+            
+            //console.log(action);
             if (action.payload.author === "me") {
                 setTimeout(() => {
                     store.dispatch(
@@ -12,9 +14,12 @@ export const messagesMiddleware = (store) => (next) => (action) => {
                             action.payload.chatId
                         )
                     );
-                }, 1000);
+                }, 3000);
             }
-        }
+        };
+       
+        
+        
     }
 
     return next(action);

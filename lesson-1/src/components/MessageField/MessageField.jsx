@@ -23,7 +23,12 @@ class _MessageField extends Component {
         sendMessage: PropTypes.func.isRequired,
         classes: PropTypes.object,
     };
-
+    // constructor(props) {
+    //     super(props);
+        
+    //     const { messages} = this.props;
+    // }
+        
     state = {
         textMessage: '',
     };
@@ -44,10 +49,32 @@ class _MessageField extends Component {
         });
     };
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
        
         this.fieldRef.current.scrollTop = this.fieldRef.current.scrollHeight;
     }
+
+    
+    deleteMessages(index) {
+        const chatId = this.props.currentChat;
+        const messages = this.props.messages[chatId];
+        
+
+       //const clickedMessagesIndex =  messages.findIndex( s => messages.isEqual(s, item));
+       //const clickedMessagesIndex = 1;
+        
+
+        if (~index) {
+            messages.splice(index, 1);
+            this.setState({
+              messages,
+            });
+          }
+       // console.log(messages,chatId,index);
+      }
+
+
+
 
     render() {
         const { messages = {}, currentChat: chatId } = this.props;
@@ -60,9 +87,20 @@ class _MessageField extends Component {
                         <div className='messages' ref={this.fieldRef}>
                             {messages[chatId] &&
                                 messages[chatId].map((item, index) => (
-                                    <Messages key={index} {...item} />
+                                    <div key={index}><Messages  {...item} 
+                                    
+                                    // onClick={() => { this.handleDeleteElement(index) }}
+                                    />
+                                    <IconButton 
+               
+                                        onClick={this.deleteMessages.bind(this, index)}
+                                    >
+                                        <Icon>delete</Icon>
+                                    </IconButton>
+                                    </div>
                                 ))}
                         </div>
+                       
                         <div className='message-new'>
                             <TextField
                                 inputRef={this.inputRef}
@@ -78,6 +116,7 @@ class _MessageField extends Component {
                                         this.addMessage();
                                     }
                                 }}
+                                
                             />
                             <IconButton
                                 color='primary'

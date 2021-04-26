@@ -1,34 +1,35 @@
-import { combineReducers, createStore,applyMiddleware,compose } from "redux"
+import { connectRouter } from "connected-react-router";
+import { createBrowserHistory } from "history";
+import { combineReducers, createStore,applyMiddleware,compose } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import {messageReducer} from "./message_store";
 import {chatReducer} from "./chat_store";
 import {profileReducer} from "./profile_store";
 import { messagesMiddleware} from "./middlewares"
 
-// const initialState = {
-//     chat: {
-//         chats: ['chat 1'],
-//         messages: {
-//             0: [
-//                 { text: 'Hello world', author: 'me' },
-//                 { text: 'How are you?', author: 'me' },
-//             ],
-//         },
-//     },
-// };
+export const history = createBrowserHistory();
 
-export const reducers = combineReducers({
-   messages: messageReducer,
-    chat: chatReducer,
-   profile: profileReducer,
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['chat', 'profile','messages'],
     
-    // initialState,
-   
-    // composeWithDevTools()
-}
-);
+};
 export const store = createStore(
-    reducers,
+    persistReducer(
+        persistConfig,
+        combineReducers({
+            router: connectRouter(history),
+            messages: messageReducer,
+             chat: chatReducer,
+            profile: profileReducer,
+             
+         }),
+    ),
+   
+    
     compose(
         applyMiddleware(messagesMiddleware),
         window.__REDUX_DEVTOOLS_EXTENSION__
@@ -37,3 +38,4 @@ export const store = createStore(
       ),
     
   )
+  export const persistor = persistStore(store)

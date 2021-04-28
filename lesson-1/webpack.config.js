@@ -12,6 +12,7 @@ module.exports = {
         path: path.resolve(__dirname,'static','build'),
        publicPath:'/',
     },
+    
     module:{
         rules: [
             {
@@ -22,6 +23,7 @@ module.exports = {
                 options: {
                     presets: [
                         '@babel/env',
+                        
                         ['@babel/preset-react',{
                             runtime:'automatic'
                             }
@@ -54,6 +56,13 @@ module.exports = {
         template: "./src/index.html"
     })],
     
+    resolve: {
+        fallback: {
+            
+          util: require.resolve("util/")
+          
+        }
+    },
     resolve: {
         extensions:['.js','.jsx'],
     },

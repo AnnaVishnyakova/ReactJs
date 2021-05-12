@@ -3,6 +3,7 @@ import { createBrowserHistory } from "history";
 import { combineReducers, createStore,applyMiddleware,compose } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
+import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import {messageReducer} from "./message_store";
 import {chatReducer} from "./chat_store";
@@ -31,7 +32,7 @@ export const store = createStore(
    
     
     compose(
-        applyMiddleware(messagesMiddleware),
+        applyMiddleware(thunk,messagesMiddleware),
         window.__REDUX_DEVTOOLS_EXTENSION__
           ? window.__REDUX_DEVTOOLS_EXTENSION__()
           : () => {},

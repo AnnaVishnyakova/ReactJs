@@ -1,11 +1,11 @@
 import axios from "axios";
-import { config } from "webpack";
+// //import { config } from "webpack";
 
 class Request {
     constructor (token){
         this.token = token;
         this.request = axios.create({
-            baseURL:"http://localhost:8000",
+            baseURL:"http://localhost:8080",
             timeout:1000,
 
         })

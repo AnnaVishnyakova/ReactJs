@@ -32,9 +32,9 @@ const getChats = (request, response) => {
   const getMessagesById = (request, response) => {
     const { id } = request.params
   
-    response.status(200).send({ messages: messages[id] || [], chatId: id })
+    response.status(200).send(messages[id] || [])
   }
   server.get("/chats", getChats)
   server.get("/messages/:id", getMessagesById)
 
-server.listen("8000", () => console.log("port 8000"))
+server.listen("8000", () => console.log("port 8080"))

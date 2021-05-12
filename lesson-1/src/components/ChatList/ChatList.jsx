@@ -8,9 +8,10 @@ import Send from '@material-ui/icons/Send';
 import { TextField, Icon, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
+//import { getChats } from "../../store";
 import './ChatList.css';
 import { addChat } from '../../store/chat_store/chatActions';
-
+import { getChats } from '../../store/chat_store/chatActions';
 // const styles = {
 //     root: {
 //         color: 'black',
@@ -21,12 +22,16 @@ import { addChat } from '../../store/chat_store/chatActions';
 class _ChatList extends Component {
     static propTypes = {
         chats: PropTypes.array.isRequired,
-        addChat: PropTypes.func.isRequired,
+       //addChat: PropTypes.func.isRequired,
     };
 
     state = {
         chatName: '',
     };
+
+    ComponentDidMount(){
+        this.props.getChats()
+    }
 
     addChat = () => {
         this.props.addChat(this.state.chatName);
@@ -36,10 +41,10 @@ class _ChatList extends Component {
     };
 
     render() {
-        const { chats,lastMessage, messages} = this.props;
+        const { chats, chatsPending} = this.props;
         //const msg = messages[index] || []
 
-        return (
+        return  chatsPending ?(<h2>Loading..</h2>) :(
             <div className='chat-list'>
                 <List>
                     {chats.map((chat, index) => (
@@ -84,10 +89,22 @@ class _ChatList extends Component {
 }
 const mapStateToProps = (state) => ({
     chats: state.chat.chats,
+    chatsPending:state.chat.chatsPending,
+    
+   
+   
     //messages: state.messages.messages,
 });
+const mapDispatchToProps = (dispath) =>({
+    getChats: () => dispatch(getChats()),
+    
+})
 
-export const ChatList = connect(mapStateToProps, { addChat })(_ChatList);
+export const ChatList = connect(
+    mapStateToProps,
+   mapDispatchToProps,
+  // { addChat }
+)(_ChatList);
 
 
 
